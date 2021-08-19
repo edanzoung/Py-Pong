@@ -217,7 +217,7 @@ class Tkinter_app():
         #==== Function to move the ball
 
         #==== Timer to create a loop for ball move
-        self.timer = multitimer.MultiTimer(interval=0.000000000000000000000000000000000000001,function=lambda:[ball_collisions()], count=-1)
+        self.timer = multitimer.MultiTimer(interval=0.01,function=lambda:[ball_collisions()], count=-1)
 
         def start_loop():
             self.canvas2.itemconfig(self.pause,fill=rgb((255,255,255)),text="")
