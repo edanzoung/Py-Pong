@@ -132,7 +132,7 @@ class Tkinter_app():
         self.ball=self.canvas2.create_image(self.ball_coord_x,self.ball_coord_y, image=self.ball_)     
         
         self.log=self.canvas2.create_text(120,10,text="",fill=rgb((255,255,255)),font=("Time",10,"bold"))
-        self.pause=self.canvas2.create_text(420,250,text="PAUSE...",fill=rgb((255,255,255)),font=("Time",30,"bold"))
+        self.pause=self.canvas2.create_text(420,250,text="",fill=rgb((255,255,255)),font=("Time",30,"bold"))
         
         #=====================================================#
         #================= GAME PAGE   END ===================#
