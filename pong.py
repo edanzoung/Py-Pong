@@ -38,7 +38,7 @@ class Tkinter_app():
         
         #=== Ball Image
         self.ball_file = Image.open("assets/ball.png")
-        self.ball_file = self.ball_file.resize((30,30), Image.ANTIALIAS)
+        self.ball_file = self.ball_file.resize((60,60), Image.ANTIALIAS)
         self.ball_=ImageTk.PhotoImage(self.ball_file)      
         
         #=== Start Button Image
