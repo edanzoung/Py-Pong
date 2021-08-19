@@ -32,41 +32,44 @@ class Tkinter_app():
         self.logo_file = self.logo_file.resize((300,300), Image.ANTIALIAS)
         self.logo=ImageTk.PhotoImage(self.logo_file)
         
-        #=== Player bar Image
+        #=== Player pad Image
         self.pad_file = Image.open("assets/pad2.png")
         self.pad_file = self.pad_file.resize((200,200), Image.ANTIALIAS)
         self.pad_=ImageTk.PhotoImage(self.pad_file)
         #=== Ball Image
         self.ball_file = Image.open("assets/ball.png")
         self.ball_file = self.ball_file.resize((30,30), Image.ANTIALIAS)
-        self.ball_=ImageTk.PhotoImage(self.ball_file)
-        
+        self.ball_=ImageTk.PhotoImage(self.ball_file)     
         
         #=== Start Button Image
         self.start_file = Image.open("assets/start.png")
         self.start_file = self.start_file.resize((150,50), Image.ANTIALIAS)
         self.start=ImageTk.PhotoImage(self.start_file)
+        
         #=== Home Button Image
         self.home_file = Image.open("assets/home.png")
         self.home_file = self.home_file.resize((150,50), Image.ANTIALIAS)
         self.home=ImageTk.PhotoImage(self.home_file)
+        
         #=== Start Loop Button Image
         self.start_loop_file = Image.open("assets/start_loop.png")
         self.start_loop_file = self.start_loop_file.resize((150,50), Image.ANTIALIAS)
         self.start_loop=ImageTk.PhotoImage(self.start_loop_file)
+        
         #=== Stop Loop Button Image
         self.stop_loop_file = Image.open("assets/stop_loop.png")
         self.stop_loop_file = self.stop_loop_file.resize((150,50), Image.ANTIALIAS)
         self.stop_loop=ImageTk.PhotoImage(self.stop_loop_file)
         
-        #==== Bar coordinates
+        #==== Pad coordinates
         self.pad_coord_x=100
         self.pad_coord_y=100
 
         #==== Ball coordinates
         self.ball_coord_x=500
         self.ball_coord_y=100
-
+        
+        #==== Ball directions
         self.ball_direction_x=2
         self.ball_direction_y=2
 
@@ -120,9 +123,10 @@ class Tkinter_app():
         self.canvas2.create_rectangle(0,0,800,20,fill="#fff")
         self.canvas2.create_rectangle(0,440,800,500,fill="#fff")
 
-        #==== pad Image
+        #==== pad Image and Rectangle
         self.pad_rect=self.canvas2.create_rectangle(self.pad_coord_x-5,self.pad_coord_y-60,self.pad_coord_x+15,self.pad_coord_y+10,fill="#000")
         self.pad=self.canvas2.create_image(self.pad_coord_x,self.pad_coord_y, image=self.pad_)
+        
         #==== Ball Image
         self.ball=self.canvas2.create_image(self.ball_coord_x,self.ball_coord_y, image=self.ball_)     
         
@@ -159,8 +163,6 @@ class Tkinter_app():
                             bg=rgb((255,255,255)),borderwidth = 0,cursor="hand2",command=home)
         self.home_button.place(x=640, y=445)
 
-        
-
         #=====================================================#
         #================= PAGINATION FUNCTIONS  END =========#
         #=====================================================#
@@ -169,7 +171,7 @@ class Tkinter_app():
         #================= MOUSE EVENTS FUNCTIONS  ===========#
         #=====================================================#
 
-        #==== When Mouse Enter and move over the snake
+        #==== When Mouse move over the canvas
         def info(event):            
             self.canvas2.itemconfig(self.log,fill=rgb((0,0,0)),text='Mouse coordinates ==> x: '+str(event.x)+' / '+'y: '+str(event.y))
                 
@@ -180,9 +182,7 @@ class Tkinter_app():
             self.pad_coord_y=event.y-60
             
             self.canvas2.coords(self.pad,(self.pad_coord_x,self.pad_coord_y))
-            self.canvas2.coords(self.pad_rect,(event.x-5,event.y-120,event.x+15,event.y-50))
-
-            
+            self.canvas2.coords(self.pad_rect,(event.x-5,event.y-120,event.x+15,event.y-50))            
 
             #=== LEFT
             if self.canvas2.coords(self.pad)[0] <= 37:
@@ -230,6 +230,7 @@ class Tkinter_app():
                             highlightthickness = 0,text="",
                             bg=rgb((255,255,255)),borderwidth = 0,cursor="hand2",command=start_loop)
         self.start_loop_button.place(x=250, y=445)
+        
         #==== Button Stop loop in ball Page
         self.stop_loop_button = Button(self.canvas2,image=self.stop_loop,compound = 'center',relief="flat",
                             highlightthickness = 0,text="",
@@ -265,14 +266,8 @@ class Tkinter_app():
                 self.ball_direction_x *=1
             elif (self.canvas2.coords(self.ball)[0] <= self.canvas2.winfo_x()+self.canvas2.coords(self.pad_rect)[2] and
                 self.canvas2.coords(self.ball)[1] >= self.canvas2.winfo_y()+self.canvas2.coords(self.pad_rect)[1] and
-                self.canvas2.coords(self.ball)[1] <= self.canvas2.winfo_y()+self.canvas2.coords(self.pad_rect)[3]) :
-                
+                self.canvas2.coords(self.ball)[1] <= self.canvas2.winfo_y()+self.canvas2.coords(self.pad_rect)[3]) :               
                 self.ball_direction_x *= -1
-
-            
-                
-                
-
 
         #=====================================================#
         #================= MOUSE EVENTS FUNCTIONS  END =======#
@@ -287,7 +282,6 @@ class Tkinter_app():
         #=====================================================#
         #============= ITEMS BINDING  END ====================#
         #=====================================================#
-        
 
 
 if __name__=='__main__':
