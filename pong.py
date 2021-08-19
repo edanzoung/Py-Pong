@@ -36,6 +36,7 @@ class Tkinter_app():
         self.pad_file = Image.open("assets/pad2.png")
         self.pad_file = self.pad_file.resize((200,200), Image.ANTIALIAS)
         self.pad_=ImageTk.PhotoImage(self.pad_file)
+        
         #=== Ball Image
         self.ball_file = Image.open("assets/ball.png")
         self.ball_file = self.ball_file.resize((30,30), Image.ANTIALIAS)
