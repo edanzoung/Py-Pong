@@ -1,5 +1,5 @@
 #=====================================================#
-#=========== Py pong by Edanzoung ====================#
+#=========== Py-Pong by Edanzoung ====================#
 #============== edanzoung@outlook.fr =================#
 #=====================================================#
 
@@ -12,7 +12,6 @@
 #***** *** to run, copy, distribute, study, change ***#
 #*********** and improve the software  ***************#
 #=====================================================#
-
 
 from tkinter import Tk, Canvas, Entry, Label, Button, Frame
 from PIL import Image, ImageTk, ImageGrab
@@ -32,7 +31,7 @@ class Tkinter_app():
         self.logo_file = self.logo_file.resize((300,300), Image.ANTIALIAS)
         self.logo=ImageTk.PhotoImage(self.logo_file)
         
-        #=== Player pad Image
+        #=== Player Pad Image
         self.pad_file = Image.open("assets/pad2.png")
         self.pad_file = self.pad_file.resize((200,200), Image.ANTIALIAS)
         self.pad_=ImageTk.PhotoImage(self.pad_file)
@@ -40,7 +39,7 @@ class Tkinter_app():
         #=== Ball Image
         self.ball_file = Image.open("assets/ball.png")
         self.ball_file = self.ball_file.resize((30,30), Image.ANTIALIAS)
-        self.ball_=ImageTk.PhotoImage(self.ball_file)     
+        self.ball_=ImageTk.PhotoImage(self.ball_file)      
         
         #=== Start Button Image
         self.start_file = Image.open("assets/start.png")
@@ -62,15 +61,14 @@ class Tkinter_app():
         self.stop_loop_file = self.stop_loop_file.resize((150,50), Image.ANTIALIAS)
         self.stop_loop=ImageTk.PhotoImage(self.stop_loop_file)
         
-        #==== Pad coordinates
+        #==== Bar coordinates
         self.pad_coord_x=100
         self.pad_coord_y=100
 
         #==== Ball coordinates
         self.ball_coord_x=500
         self.ball_coord_y=100
-        
-        #==== Ball directions
+
         self.ball_direction_x=2
         self.ball_direction_y=2
 
@@ -84,7 +82,6 @@ class Tkinter_app():
         def rgb(rgb):
             """translate an rgb tuple of int to a tkinter friendly color code"""
             return "#%02x%02x%02x" % rgb
-
         
 
         #=====================================================#
@@ -103,7 +100,6 @@ class Tkinter_app():
 
         #==== Logo Image
         self.canvas.create_image(400,200, image=self.logo)
-
         #=====================================================#
         #================= HOME PAGE  END  ===================#
         #=====================================================#
@@ -124,16 +120,14 @@ class Tkinter_app():
         self.canvas2.create_rectangle(0,0,800,20,fill="#fff")
         self.canvas2.create_rectangle(0,440,800,500,fill="#fff")
 
-        #==== pad Image and Rectangle
+        #==== pad Image
         self.pad_rect=self.canvas2.create_rectangle(self.pad_coord_x-5,self.pad_coord_y-60,self.pad_coord_x+15,self.pad_coord_y+10,fill="#000")
         self.pad=self.canvas2.create_image(self.pad_coord_x,self.pad_coord_y, image=self.pad_)
-        
         #==== Ball Image
         self.ball=self.canvas2.create_image(self.ball_coord_x,self.ball_coord_y, image=self.ball_)     
         
         self.log=self.canvas2.create_text(120,10,text="",fill=rgb((255,255,255)),font=("Time",10,"bold"))
-        self.pause=self.canvas2.create_text(420,250,text="",fill=rgb((255,255,255)),font=("Time",30,"bold"))
-        
+        self.pause=self.canvas2.create_text(420,250,text="",fill=rgb((255,255,255)),font=("Time",30,"bold"))      
         #=====================================================#
         #================= GAME PAGE   END ===================#
         #=====================================================#
@@ -142,7 +136,6 @@ class Tkinter_app():
         #=====================================================#
         #================= PAGINATION FUNCTIONS ==============#
         #=====================================================#
-
         self.frame1.lift()
         
         def begin():
@@ -163,7 +156,6 @@ class Tkinter_app():
                             highlightthickness = 0,text="",
                             bg=rgb((255,255,255)),borderwidth = 0,cursor="hand2",command=home)
         self.home_button.place(x=640, y=445)
-
         #=====================================================#
         #================= PAGINATION FUNCTIONS  END =========#
         #=====================================================#
@@ -183,7 +175,7 @@ class Tkinter_app():
             self.pad_coord_y=event.y-60
             
             self.canvas2.coords(self.pad,(self.pad_coord_x,self.pad_coord_y))
-            self.canvas2.coords(self.pad_rect,(event.x-5,event.y-120,event.x+15,event.y-50))            
+            self.canvas2.coords(self.pad_rect,(event.x-5,event.y-120,event.x+15,event.y-50))          
 
             #=== LEFT
             if self.canvas2.coords(self.pad)[0] <= 37:
@@ -208,14 +200,9 @@ class Tkinter_app():
             #=== LEFT/BOTTOM
             if self.canvas2.coords(self.pad)[0] <= 37 and self.canvas2.coords(self.pad)[1] >= 420:
                 self.canvas2.coords(self.pad,(37,420))
-                self.canvas2.coords(self.pad_rect,(37-5,420-60,37+15,420+10))
-
-            
-
-            
+                self.canvas2.coords(self.pad_rect,(37-5,420-60,37+15,420+10))          
 
         #==== Function to move the ball
-
         #==== Timer to create a loop for ball move
         self.timer = multitimer.MultiTimer(interval=0.01,function=lambda:[ball_collisions()], count=-1)
 
@@ -231,19 +218,13 @@ class Tkinter_app():
                             highlightthickness = 0,text="",
                             bg=rgb((255,255,255)),borderwidth = 0,cursor="hand2",command=start_loop)
         self.start_loop_button.place(x=250, y=445)
-        
         #==== Button Stop loop in ball Page
         self.stop_loop_button = Button(self.canvas2,image=self.stop_loop,compound = 'center',relief="flat",
                             highlightthickness = 0,text="",
                             bg=rgb((255,255,255)),borderwidth = 0,cursor="hand2",command=stop_loop)
-        self.stop_loop_button.place(x=440, y=445)
-        
+        self.stop_loop_button.place(x=440, y=445) 
         
         def ball_collisions():
-
-            self.width_pad = self.canvas2.winfo_width()-(self.canvas2.winfo_x()+self.canvas2.coords(self.pad)[0])
-            
-            #print(self.canvas2.coords(self.ball))
             
             self.canvas2.move(self.ball,self.ball_direction_x,self.ball_direction_y)
 
@@ -261,15 +242,17 @@ class Tkinter_app():
                 self.ball_direction_y *= -1
 
             #=== PAD AND BALL COLLISION
-            if (self.canvas2.coords(self.ball)[0] <= self.canvas2.winfo_x()+self.canvas2.coords(self.pad_rect)[0] and
-                self.canvas2.coords(self.ball)[1] >= self.canvas2.winfo_y()+self.canvas2.coords(self.pad_rect)[1] and
-                self.canvas2.coords(self.ball)[1] <= self.canvas2.winfo_y()+self.canvas2.coords(self.pad_rect)[3]):
-                self.ball_direction_x *=1
-            elif (self.canvas2.coords(self.ball)[0] <= self.canvas2.winfo_x()+self.canvas2.coords(self.pad_rect)[2] and
-                self.canvas2.coords(self.ball)[1] >= self.canvas2.winfo_y()+self.canvas2.coords(self.pad_rect)[1] and
-                self.canvas2.coords(self.ball)[1] <= self.canvas2.winfo_y()+self.canvas2.coords(self.pad_rect)[3]) :               
+            if (self.canvas2.coords(self.ball)[0] <= self.canvas2.coords(self.pad_rect)[0] and
+                self.canvas2.coords(self.ball)[1] >= self.canvas2.coords(self.pad_rect)[1] and
+                self.canvas2.coords(self.ball)[1] <= self.canvas2.coords(self.pad_rect)[3]):
+                self.ball_direction_x *= 1
+                
+                
+            elif (self.canvas2.coords(self.ball)[0] <= self.canvas2.coords(self.pad_rect)[2] and
+                self.canvas2.coords(self.ball)[1] >= self.canvas2.coords(self.pad_rect)[1] and
+                self.canvas2.coords(self.ball)[1] <= self.canvas2.coords(self.pad_rect)[3]) :
                 self.ball_direction_x *= -1
-
+                
         #=====================================================#
         #================= MOUSE EVENTS FUNCTIONS  END =======#
         #=====================================================#
@@ -283,6 +266,7 @@ class Tkinter_app():
         #=====================================================#
         #============= ITEMS BINDING  END ====================#
         #=====================================================#
+        
 
 
 if __name__=='__main__':
